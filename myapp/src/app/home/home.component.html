@@ -1,0 +1,171 @@
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<div class="main">
+   <!-- <img onerror="alert('could run arbitrary JS here')" src=bogus> -->
+<div class="about-container">
+   <h1>ABOUT</h1>
+   <p>MUSIQUE is an experential music platform connecting you to up and coming music. Everyone is free to use it
+     but only registered users get to contribute to the catalog!
+   </p>
+</div>
+<button id="login-btn" *ngIf="!loggedin" (click)="openLoginPanel()">LOG IN</button><br>
+<button *ngIf="!loggedin" (click)="signinWithGoogle()">Sign in with Google</button><br>
+<button id="login-btn" *ngIf="!loggedin" (click)="openModalPanel('register-container')">register</button><br>
+
+
+  <button  (click)="openModalPanel('search-container')">Find Song</button><br>
+  <button *ngIf="loggedin" (click)="openSongPanel()">Add Song</button>
+
+
+<div class="top10">
+<h1>TOP 10</h1>
+<ul *ngIf="topSongs">
+    <li *ngFor="let song of topSongs">
+      <p class="top10-song-artist">Artist: {{song.artist}}</p>
+      <p class="top10-song-title">Title: {{song.title}}</p>
+      <p class="top-10-reviews">Reviews: {{song.reviews}}</p><br><br>
+      <button *ngIf="loggedin" (click)="openReviewPanel(song._id, song.title)">Add Review</button>
+      <button (click)="openAttributesPanel(song._id)">View Attributes</button>
+      <button (click)="openReviewsPanel(song._id)">View Reviews</button>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+
+<button id="myBtn" (click)="openmodal()">Open Modal</button>
+
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+
+    <div *ngIf="!loggedin" class="login-container" >
+        <h1>LOG IN</h1>
+        <label>Email: </label><input type="text" [(ngModel)]="email"><br>
+        <label>Password: </label><input type="text" [(ngModel)]="password"><br><br>
+        <button (click)="login(closeModalParam('login-container'))">Log In</button>
+        <button (click)="closeModalParam('login-container')">close</button>
+    </div>
+    <div *ngIf="!loggedin" class="register-container" >
+        <h1>REGISTER</h1>
+        <label>Email: </label><input type="text" [(ngModel)]="NewUser['email']"><br>
+        <label>Password: </label><input type="text" [(ngModel)]="NewUser['password']"><br><br>
+        <button (click)="register(closeModalPanel('register-container'))">register</button>
+        <button (click)="closeModalPanel('register-container', NewUser)">close</button>
+    </div>
+    
+
+
+        <div *ngIf="loggedin" class="review-container">
+          <h1>Add Review</h1>
+          <label>Song Title: {{NewReview.title}}</label><br>
+          <label>Review: </label><input type="text" [(ngModel)]="NewReview['review']"><br>
+          <label>Rating: </label><input type="number" [(ngModel)]="NewReview['stars']"><br>
+          <button (click)="sumbitReview()">sumbit review</button>
+          <button (click)="closeReviewPanel()">Close</button>
+        </div>
+
+
+    
+          <div *ngIf="loggedin" class="addsong-container">
+            <h1>Add Song</h1>
+            <label>Song Title: </label><input type="text" [(ngModel)]="NewSong['title']"><br>
+            <label>Artist: </label><input type="text" [(ngModel)]="NewSong['artist']"><br>
+            <label>Album: </label><input type="text" [(ngModel)]="NewSong['album']"><br>
+            <label>Year: </label><input type="number" [(ngModel)]="NewSong['year']"><br>
+            <label>Genre: </label><input type="number" [(ngModel)]="NewSong['genre']"><br>
+            <label>Review: </label><input type="text" [(ngModel)]="NewReview['review']"><br>
+            <label>Rating: </label><input type="number" [(ngModel)]="NewReview['stars']"><br>
+            <button (click)="sumbitSong()">sumbit song</button>
+            <button (click)="closeModalPanel('addsong-container', NewReview)">close</button>
+            
+          </div>
+ 
+    
+      <div class="view-attribute-container">
+  
+          <div *ngIf="viewSong">
+              <div *ngIf="viewSong">
+                  <div *ngIf="!viewSong.hidden">
+              <p>Artist: {{viewSong.artist }}</p><br>
+              <p>Song: {{viewSong.title }}</p><br> 
+              <p >Album: {{viewSong.album }}</p><br> 
+              <p>Reviews: {{viewSong.reviews }}</p><br>
+              <p>Rating: {{average(viewSong._id)}}</p><br> 
+              <p>Genre: {{viewSong.genre }}</p><br>
+              <p>Year: {{viewSong.year}}</p><br> 
+              <p *ngIf="viewSong.lastreview; else nolastreview">Last review: {{viewSong.lastreview['review']}}</p>
+              <ng-template #nolastreview>
+                  <p>No Last Review</p>
+                </ng-template>
+
+            
+            </div>
+          </div>
+            <button (click)="closeAttributesPanel()">close</button>
+          </div>
+      </div>
+
+ 
+          <div class="view-reviews-container">
+              <div *ngIf="viewSong">
+              <div *ngFor="let review of ReviewsList" >
+                  <div *ngIf="review.songid == viewSong._id">
+                        <p>User: {{review.email }}</p>
+                        <p>Review: {{review.review}}</p>
+                        <p *ngIf="review.stars; else noratinggiven">Rating: {{review.stars}}</p>
+                        <ng-template #noratinggiven>
+                            <p>No Rating Given</p>
+                          </ng-template>
+                          <p>-----</p>
+                    </div>
+                  </div>
+              </div>
+              <button (click)="closeModalPanel('view-reviews-container', viewSong)">close</button>
+            </div>
+
+     <div class="search-container">
+            <input type="text" [(ngModel)]="searchTerm"><button (click)="closeModalPanel('search-container')"> close</button>
+            <div *ngIf="SearchList">
+                <div *ngFor="let song of SearchList">
+                  <ul *ngIf=softSearch(song)>
+                    <li>
+                  <p class="search-artist">Artist: {{song.artist}}</p>
+                  <p class="search-title">Song: {{song.title}}</p>
+                  <p class="album">Album: {{song.album}}</p>
+                  <button *ngIf="loggedin" (click)="changeModalPanel('search-container',openReviewPanel(song._id, song.title))">Add Review</button>
+                  <button (click)="changeModalPanel('search-container', openAttributesPanel(song._id))">View Attributes</button>
+                  <button (click)="changeModalPanel('search-container', openReviewsPanel(song._id))">View Reviews</button>
+                </li>
+                  </ul>  
+
+              </div>
+                  
+          
+              </div>
+              
+          </div> 
+            
+          
+    
+
+
+  </div>
+
+ 
+
+</div>
+
+
+</div>
+

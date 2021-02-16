@@ -1,0 +1,84 @@
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<h1>SITE ADMIN </h1>
+<button>Manage Users</button>
+<button>Manage Songs</button>
+<button>View Violated Songs</button>
+
+<div class="log-contest">
+
+  <br>
+  <br>
+  <h1> LOG {{Contest.type}}</h1>
+  <label>DATE RECEIVED/CONTESTED/DISPUTED: </label><br>
+  <input type="text" [(ngModel)]="Contest['date']"><br><br>
+  <label>COMMENTS: </label><br>
+  <textarea type="text" [(ngModel)]="Contest['comment']"></textarea><br>
+  <button class="sumbit-contest" (click)="sumbitContest()">log</button>
+
+</div>
+
+<div class="manage-users-container">
+  <h1>USERS</h1>
+  <ul *ngIf="UsersList">
+      <li *ngFor="let usr of UsersList">
+       
+        <p class="user-email">User: {{usr.email}}</p>
+        <p class="user-email">Site Manager:  {{usr.manager}}</p>
+        <p class="user-email">Active:  {{usr.active}}</p>
+        <br>
+        <button *ngIf="usr._id != User._id" (click)=toggleAdminUser(usr._id)>toggle manager access</button>
+        <button *ngIf="usr._id != User._id" (click)=toggleActiveUser(usr._id)>toggle active/deactive</button>
+  
+      </li>
+    </ul>
+  
+</div>
+
+<div class="manage-songs-container">
+    <h1>SONGS</h1>
+    <ul *ngIf="SongsList">
+        <li *ngFor="let song of SongsList">
+          <p class="name">{{song.title}}</p>
+          <p class="name">Hidden: {{song.hidden}}</p>
+          <button (click)="toggleHiddenSong(song._id)">toggle hidden/not hidden</button>
+          <button (click)="logContest(song._id, song, 'notice')">log notice</button>
+          <button (click)="logContest(song._id, song, 'request')">log request</button>
+          <button (click)="logContest(song._id, song, 'dispute')">log dispute</button>
+
+        </li>
+      </ul>
+    
+  </div>
+
+  <div class="manage-contested-container">
+      <h1>CONTESTED SONGS</h1>
+      <div *ngIf="SongsList">
+          <div *ngFor="let song of SongsList">
+            <ul>
+            <li *ngIf="song.notice || song.dispute || song.request">
+            <p class="name">{{song.title}}</p>
+            <p class="name">Hidden: {{song.hidden}}</p>
+            <button (click)="toggleHiddenSong(song._id)">toggle hidden/not hidden</button>
+            <button *ngIf="song.notice || song.dispute || song.request " (click)="restoreContest(song._id, song)">restore contest</button>
+            </li>
+        </ul>
+        </div>
+        </div>
+      
+    </div>
+
+
+    <div>
+      <h1>DMCA takedown procedure and tools  </h1>
+      <ol>
+        <li>Frequently check inbox for received ispute/notice/request</li>
+        <li>Consult Security & Takedown policy to see if requesr is valid</li>
+        <li>Refer to list of songs available in site managment portal</li>
+        <li>click log for the relevant type of claim being made</li>
+
+      </ol>
+    </div>

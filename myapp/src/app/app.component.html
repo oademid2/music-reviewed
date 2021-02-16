@@ -1,0 +1,20 @@
+<header>
+    <meta charset="UTF-8">
+  <div class="container">
+    <a routerLink="/" class="logo">CoolApp</a>
+    <nav>
+      <ul>
+      <div *ngIf="User">
+        <li><a href="#" *ngIf="User.manager" routerLink="/userapp">Manage Site</a></li> 
+      </div>
+`
+        <li><a href="#" routerLink="/policy">View Policies</a></li> 
+      </ul>
+    </nav>
+  </div>
+</header>
+{{message}}
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+

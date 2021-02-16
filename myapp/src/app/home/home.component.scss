@@ -1,0 +1,156 @@
+.active {
+    //background-color: lightgray;
+}
+
+.notactive {
+    //background-color: yellow;
+}
+
+.review-container{
+    display: none;
+}
+
+.addsong-container{
+    display: none;
+}
+
+.view-attribute-container{
+    display:none;
+}
+
+.sidebar{
+    display: block;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: auto;
+    width: 30%;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;//80%; /* Could be more or less, depending on screen size */
+    overflow: auto;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .search-container{
+      display: none;
+     
+        ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+
+
+    li {
+        background: rgb(238, 238, 238);
+        padding: 0.5em;
+        margin-right: 10px;
+        margin-top: 3%;
+        width: 20%;
+        height:auto;
+    
+  }
+ 
+  }
+}
+
+  #login-btn{
+      background-color: darkgreen;
+      color:white;
+      
+  }
+
+  .login-container{
+      display:none;
+  }
+
+.top10{
+      ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+        background: rgb(238, 238, 238);
+        padding: 1em;
+        margin-right: 10px;
+        width: 20%;
+        height: 200px;
+        margin-bottom: 1em;
+        display: flex;
+        flex-direction: column;
+
+        p {
+            margin: 0;
+        }
+
+        p#top10-song-title{
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        p#top10-song-artist{
+            text-transform: uppercase;
+            font-size: .9rem;
+            flex-grow: 1;
+        }
+    }
+}
+  }
+
+  .view-reviews-container{
+      display:none;
+  }
+
+  .view-attribute-container{
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+}
+
+
+.register-container{
+  display:none;
+}

@@ -1,0 +1,47 @@
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<h1>SECURITY POLICY</h1>
+<div *ngIf="_policy.exists">
+        <h1>Contact: {{_policy.contact}}</h1>
+       <p>{{_policy.policydoc}}</p> 
+       <button *ngIf="User.manager" class="modify-btn" (click)="modifyPolicy()">update policy</button><br>
+
+       <div class="policy-edit-area">
+            <textarea *ngIf="User.manager" [(ngModel)]="_policydoc" > {{_policydoc}}</textarea><br>
+            <button class="policy-update-btn" (click)="updatePolicy()">save</button>
+            <button class="policy-close-btn" (click) = "closePolicyUpdate()">close</button>
+       </div>
+       
+</div>
+    
+<div *ngIf="!_policy.exists">
+        <h1>NO POLICY EXISTS YET</h1>
+        <button class="policy-create-btn" *ngIf="User.manager" (click)="createPolicy()">create policy</button><br>
+        <textarea class="policy-create-area" [(ngModel)] = "_policydoc">Enter policy here....</textarea>
+        <button class="policy-save-btn" (click)="savePolicy()">save</button>
+        <button class="policy-close-btn" (click) = "closePolicyCreate()">close</button>
+</div>
+
+<h1>TAKE DOWN POLICY</h1>
+<div *ngIf="_downpolicy.exists">
+        <h1>Contact: {{_downpolicy.contact}}</h1>
+       <p>{{_downpolicy.policydoc}}</p> 
+       <button *ngIf="User.manager" class="dmodify-btn" (click)="modifyDownPolicy()">update policy</button><br>
+
+       <div class="dpolicy-edit-area">
+            <textarea *ngIf="User.manager" [(ngModel)]="_downpolicydoc" > {{_downpolicydoc}}</textarea><br>
+            <button class="dpolicy-update-btn" (click)="updateDownPolicy()">save</button>
+            <button class="dpolicy-close-btn" (click) = "closeDownPolicyUpdate()">close</button>
+       </div>
+       
+</div>
+    
+<div *ngIf="!_downpolicy.exists">
+        <h1>NO POLICY EXISTS YET</h1>
+        <button class="dpolicy-create-btn" *ngIf="User.manager" (click)="createDownPolicy()">create policy</button><br>
+        <textarea class="dpolicy-create-area" [(ngModel)] = "_downpolicydoc">Enter policy here....</textarea>
+        <button class="dpolicy-save-btn" (click)="saveDownPolicy()">save</button>
+            <button class="dpolicy-close-btn" (click) = "closeDownPolicyCreate()">close</button>
+</div>
